@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        td{
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <tr>
+            <td>tieu de</td>
+            <td>danh muc</td>
+            <td>noi dung</td>
+            <td>nguoi tao</td>
+            <td>nguoi cap nhat</td>
+        </tr>
+        <tr>
+            <td>{{ new_post.title }}</td>
+            <td>{{ new_post.category }}</td>
+            <td>{{ new_post.content }}</td>
+            <td>{{ new_post.create_by }}</td>
+            <td>{{ new_post.update_by }}</td>
+        </tr>
+    </table>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form action="{% url 'new_post' %}" method="post">
+        {% csrf_token %}
+        <p>{{ p.title }}</p>
+        <p>{{ p.category }}</p>
+        <p>{{ p.content }}</p>
+        <p>{{ p.create_by }}</p>
+        <p>{{ p.update_by }}</p>
+        <input type="submit" value="create">
+    </form>
+</body>
+</html>

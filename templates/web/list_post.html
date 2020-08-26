@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+    $(document).ready(function(){
+        $("p").click(function(){
+            $(this).hide();
+        });
+    });
+
+    </script>
+
+
+
+    <style>
+        td{
+            border: 1px solid green;
+        }
+    </style>
+</head>
+<body>
+   <!-- <p>If you click on me, I will disappear.</p>-->
+    <p>Click me away!</p>
+    <p>Click me too!</p>
+
+    <div class="container">
+        <div class="jumbotron">
+        <div class="card">
+            <div class="card-header">
+                Bootstrap Card, Model, and Forms
+            </div>
+                <div class="card-body">
+                    <h5 class="card-title">Special title treatment</h5>
+                    <table class="table table-dark table-hover table-bordered">
+                        <thead>
+                            <tr>
+                              <th scope="col">ID</th>
+                              <th scope="col">First</th>
+                              <th scope="col">Last</th>
+                              <th scope="col">Phone No</th>
+                              <th class="text-right">ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                              <th scope="row">1</th>
+                              <td>Mark</td>
+                              <td>Otto</td>
+                              <td>@mdo</td>
+                              <td class="text-right">
+                                  <button class="btn btn-primary badge-pill" style="width: 80px;"> EDIT </button>
+                                  <button class="btn btn-danger badge-pill" style="width: 80px;"> DELETE </button>
+                              </td>
+                            </tr>
+                            <tr>
+                                  <th scope="row">1</th>
+                                  <td>Mark</td>
+                                  <td>Otto</td>
+                                  <td>@mdo</td>
+                                  <td class="text-right">
+                                      <button class="btn btn-primary badge-pill" style="width: 80px;"> EDIT </button>
+                                      <button class="btn btn-danger badge-pill" style="width: 80px;"> DELETE </button>
+                                  </td>
+                                </tr>
+                            <tr>
+                                  <th scope="row">1</th>
+                                  <td>Mark</td>
+                                  <td>Otto</td>
+                                  <td>@mdo</td>
+                                  <td class="text-right">
+                                      <button class="btn btn-primary badge-pill" style="width: 80px;"> EDIT </button>
+                                      <button class="btn btn-danger badge-pill" style="width: 80px;"> DELETE </button>
+                                  </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+        </div>
+        </div>
+    </div>
+
+
+    <form action="{% url 'create' %}" method="post">
+        {% csrf_token %}
+<!--        <input type="submit" value="tao bai dang">-->
+        <button class="btn btn-primary badge-pill" style="width: 80px;">tao bai dang</button>
+    </form>
+    <table class="table table-dark">
+        <thead class="thead-dark">
+            <tr>
+                <th>id</th>
+                <th>tieu de</th>
+                <th>danh muc</th>
+                <th>noi dung</th>
+                <th>create_by</th>
+                <th>create_at</th>
+                <th>update_by</th>
+                <th>update_at</th>
+                <th>tac dong</th>
+            </tr>
+
+        </thead>
+        <tbody>
+            {% for item in lists %}
+                <tr>
+                    <td>{{ item.id }}</td>
+                    <td class="edittable" data-id="{{ item.id }}" data-type="title">{{ item.title }}</td>
+                    <td class="edittable" data-id="{{ item.id }}" data-type="category">{{ item.category }}</td>
+                    <td class="edittable" data-id="{{ item.id }}" data-type="content">{{ item.content }}</td>
+                    <td class="edittable" data-id="{{ item.id }}" data-type="create_by">{{ item.create_by }}</td>
+                    <td class="edittable" data-id="{{ item.id }}" data-type="create_at">{{ item.create_at }}</td>
+                    <td class="edittable" data-id="{{ item.id }}" data-type="update_by">{{ item.update_by }}</td>
+                    <td class="edittable" data-id="{{ item.id }}" data-type="update_at">{{ item.update_at }}</td>
+                    <td>
+                        <a></a>
+                        <form id="delete" action="{% url 'delete_post' pk=item.id %}" method="post">
+                            {% csrf_token %}
+                            <button onclick="myFunction()" class="btn btn-primary badge-pill" style="width: 80px;"> XOA </button>
+                            <script>
+                                function myFunction() {
+                                    confirm("Are you sure that you want to delete this post")
+                                }
+                            </script>
+                        </form>
+                        <a href="{% url 'edit_post' pk=item.id %}" class="btn btn-primary badge-pill" style="width: 80px;"> SUA </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
+<!--
+# - On Document Ready i am Adding Event in Which When Click on Td area. Then i will get the text form That Td
+# and Store in a variable. Then i will add the Input Box with That Value So User can EDIT
+# - B2: Instead of Click i am Adding dbclick Event
+# - B3: Now it's Working Perfect Also Doing one thing On Input Focus Out I will Remove the Input Box and Add the Value
+# Adding blur Event Which is For Focusout Event
+# - B4: Now Doing One More Thing On Enter Click Input will Remove and Text Value Will be set
+# Now Here.which will Give us The Keycode which is Pressed
+# Now Checking if Key is 13 Which is Enter Button Key Code Then i will Run the Code of Same as Blur Code
+# So Enter Key is Also Working Now
+# Also Doing One More Thing When We set the Text in TD then i will Also Add Class editable Which i Remove Earlier
+# So this is Working Now
+# - B5: Now Calling the Function and Sending Data to Server ID, Data Type, Data Value
+# Now Creating Function for Sending Our Data to Server Using AJAX
+# Adding the Type Field Also
+# We will get type from .data("type") .data Access attribute value
+# So All Working Now:
+# F12 tai trang web hien thi:
+# Uncaught DOME exception: Failed to execute 'removeChild' on 'Node': The node to be removed is no longer a child of this
+node. Perhaps it was moved in a 'blur' event handler?
+# - B6: Now Creating API for Updateting Data
+# Now Adding Condition for Updating Data Fields Which Coming Via Type
+# - B7: Now Creating AJAX Function and Saving the Data
+# Now Refreshing the Page and Seeing my Data is Updated or Not
+# You can See Als Data has Been Updated
+-->
+{% block custom_js %}
+    <script>
+        $(document).ready(function(){
+           $(document).on("dblclick",".edittable",function() {
+               var value=$(this).text();
+               var input="<input type='text' class='input-data' value='"+value+"' class='form-control'>";
+               $(this).html(input);
+               $(this).remove("edittable");
+           });
+
+           $(document).on("blur",".input-data",function () {
+                var value=$(this).val();
+                var td=$(this).parent("td");
+                $(this).remove();
+                td.html(value);
+                td.addClass("edittable");
+                var type=td.data("type");
+                sendToServer(td.data("id"), value, type);
+           });
+
+           $(document).on("keypress",".input-data",function (e) {
+                var key=e.which;
+                if(key==13){
+                    var value=$(this).val();
+                    var td=$(this).parent("td");
+                    $(this).remove();
+                    td.html(value);
+                    td.addClass("edittable");
+                    var type=td.data("type");
+                    sendToServer(td.data("id"), value, type);
+                }
+           });
+
+           function sendToServer(id, value, type){
+                console.log(id);
+                console.log(value);
+                console.log(type);
+                $.ajax({
+                    url:"http://127.0.0.1:8000/savepost",
+                    type:"POST",
+                    data:{id:id,type:type,value:value},
+                })
+               .done(function (response) {
+                    console.log(response);
+               })
+               .fail(function () {
+                    console.log("Error Occured");
+               });
+           }
+        });
+    </script>
+{% endblock custom_js %}
